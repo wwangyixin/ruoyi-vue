@@ -97,8 +97,8 @@ token:
   # 令牌有效期（默认30分钟）
   expireTime: 30
 
-# MyBatis配置
-mybatis:
+# MyBatis Plus配置
+mybatis-plus:
   # 搜索指定包别名
   typeAliasesPackage: com.ruoyi.**.domain
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
@@ -127,3 +127,10 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+# Minio配置
+minio:
+  url: http://172.168.48.1:8500
+  accessKey: BxfpjyBNYxTNniSv58xB
+  secretKey: zvgmmig1TRhjMXl33XT2u13zqTPixQiog6nTrUVb
+  bucketName: ruoyi

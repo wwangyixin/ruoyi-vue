@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.constant.Constants;
@@ -158,6 +155,30 @@ public class CommonController
         catch (Exception e)
         {
             log.error("下载文件失败", e);
+        }
+    }
+
+    /**
+     * 自定义 Minio 服务器上传请求
+     */
+    @PostMapping("/uploadMinio")
+    @ResponseBody
+    public AjaxResult uploadFileMinio(MultipartFile file) throws Exception
+    {
+        try
+        {
+            // 上传并返回新文件名称
+            String fileName = FileUploadUtils.uploadMinio(file);
+            AjaxResult ajax = AjaxResult.success();
+            ajax.put("url", fileName);
+            ajax.put("fileName", fileName);
+            ajax.put("newFileName", FileUtils.getName(fileName));
+            ajax.put("originalFilename", file.getOriginalFilename());
+            return ajax;
+        }
+        catch (Exception e)
+        {
+            return AjaxResult.error(e.getMessage());
         }
     }
 }
